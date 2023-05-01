@@ -34,7 +34,7 @@ batch = pyglet.graphics.Batch()
 
 shape = 'cube'
 
-console_height = window.height // 2 
+console_height = window.height // 2  # half of the window height
 label_console = pyglet.text.Label('console', font_size=14, x=10, y=window.height - console_height,
                                   anchor_x='left', anchor_y='center', color=(255, 255, 255, 255), batch=batch)
 label_prompt = pyglet.text.Label('> ', font_size=12, x=10, y=console_height - 20,
@@ -63,7 +63,7 @@ def on_key_press(symbol, modifiers):
     global command, typing
     if symbol == key.ENTER:
         typing = False
-        handle_command(command.strip()) 
+        handle_command(command.strip())  # use handle_command instead of process_command
         command = ""
     elif symbol == key.V and (modifiers & key.MOD_CTRL):
         paste_text = clipboard.paste()
@@ -159,7 +159,8 @@ def draw_rainbow_cylinder():
             glColor3f(*calculate_rainbow_color(vertex))
             glVertex3fv((GLfloat * len(vertex))(*vertex))
     glEnd()
-    
+
+    # Draw top and bottom
     for z_pos in [1, -1]:
         glBegin(GL_TRIANGLE_FAN)
         glColor3f(*calculate_rainbow_color((0, z_pos, 0)))
@@ -169,6 +170,7 @@ def draw_rainbow_cylinder():
             vertex = cylinder_vertices[index]
             glColor3f(*calculate_rainbow_color(vertex))
             glVertex3fv((GLfloat * len(vertex))(*vertex))
+        # Close the triangle fan
         vertex = cylinder_vertices[0] if z_pos == 1 else cylinder_vertices[num_slices]
         glColor3f(*calculate_rainbow_color(vertex))
         glVertex3fv((GLfloat * len(vertex))(*vertex))
@@ -335,7 +337,7 @@ def handle_command(cmd):
             label_command.color = text_color
             console_output.color = text_color
         else:
-            custom_print("Invalid background color. Available background colors: black, white, gray.")
+            custom_print("Invalid background color. Use a valid hex code or one of the available colors: black, white, gray.")
     elif cmd_parts[0] == 'shape':
      if len(cmd_parts) == 2 and cmd_parts[1] in ['cube', 'sphere', 'pyramid', 'cone', 'cylinder']:
         shape = cmd_parts[1]
@@ -343,9 +345,9 @@ def handle_command(cmd):
         custom_print("Invalid shape. Available shapes: cube, sphere, pyramid, cone, cylinder.")
     elif cmd_parts[0] == 'help':
         custom_print("Available commands:")
-        custom_print("  color <color_name> - Set cube color. Available colors: red, white, rainbow.")
-        custom_print("  background <bg_color_name> - Set background color. Available colors: black, white, gray.")
-        custom_print("  shape <shape_name> - Set shape. Available shapes: cube, sphere.")
+        custom_print("  color <color_name> - Set cube color. Available colors: red, white, rainbow. Hex value also accepted.")
+        custom_print("  background <bg_color_name> - Set background color. Available colors: black, white, gray. Hex value also accepted.")
+        custom_print("  shape <shape_name> - Set shape. Available shapes: cube, sphere, pyramid, cone, cylinder.")
         custom_print("  clear - Clear the console.")
     elif cmd_parts[0] == 'clear':
         console_output.document.text = ''
@@ -427,6 +429,7 @@ def draw_cylinder(shape_color=None):
             base_vertices = [cylinder_vertices[i] for i in range(2 * num_slices) if cylinder_vertices[i][1] == z_pos]
             for vertex in (base_vertices if z_pos == 1 else base_vertices[::-1]):
                 glVertex3fv((GLfloat * len(vertex))(*vertex))
+            # Add the first vertex again to close the fan
             glVertex3fv((GLfloat * len(base_vertices[0]))(*base_vertices[0]))
             glEnd()
 
