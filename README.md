@@ -12,7 +12,8 @@ In it's basic form, Guacamole allows you to rotate & zoom different 3D shapes. A
 Current features:
 - Five different shapes; Cube, Sphere, Cone, Cylinder and Pyramid.
 - Hex code color support, while also allowing for basic colors (such as red or white)
-- Rotation and zooming of shapes using the mouse
+- Background + shape coloring support via console
+- XYZ rotation of shapes using the mouse
 
 ## Credits
 
