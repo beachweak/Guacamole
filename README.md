@@ -1,7 +1,7 @@
 # Guacamole
 ## Python-based 3D shape viewer
 
-![image](https://user-images.githubusercontent.com/126778577/235465913-43834301-b303-42be-808c-6e6afb70ce2c.png)
+![image](https://user-images.githubusercontent.com/126778577/235465969-5ff873de-2897-4703-bb47-f46dbb49327a.png)
 
 ### What is Guacamole?
 
